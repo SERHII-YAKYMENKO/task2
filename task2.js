@@ -1,40 +1,24 @@
-const b = [
+const arr = [
   [1, 2, 3, 2, 7],
   [4, 5, 6, 8, 1],
   [7, 8, 9, 4, 5]
 ];
 
-function check(arr) {
-  const elems = {};
-  for (let el of arr) {
-    if (elems[el] !== undefined) {
-      return false;
-    }
-    // elems[el] = true;
-    // console.log(el);
-  }
-  return true;
-}
+function checkArr(matrix) {
+  const startGroup = matrix[0].length - 3;
+  const result = [];
 
-function move(arr) {
-  for (let i = 0; i < arr[0].length - 2; i++) {
-    const subarr = [
-      arr[0][i],
-      arr[0][i + 1],
-      arr[0][i + 2],
-      arr[1][i],
-      arr[1][i + 1],
-      arr[1][i + 2],
-      arr[2][i],
-      arr[2][i + 1],
-      arr[2][i + 2]
-    ];
-    console.log(subarr);
-
-    if (!check(subarr)) {
-      return false;
+  for (let i = 0; i <= startGroup; i++) {
+    const part = matrix.flatMap((line) => line.slice(i, i + 3));
+    const checkNum = new Set(part);
+    if (checkNum.size < 9) {
+      result.push(false);
+    } else {
+      result.push(true);
     }
   }
-  return true;
+
+  return result;
 }
-console.log(move(b));
+
+console.log(checkArr(arr));
